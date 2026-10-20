@@ -1,25 +1,29 @@
+from typing import List, Optional
 from pydantic import BaseModel
 
-class EstudanteBase(BaseModel):
-    nome: str
-    idade: int
-    
-class EstudanteCreate(EstudanteBase):
-    pass
-
-class EstudanteResponse(EstudanteBase):
+class Perfil(BaseModel):
     id: int
+    idade: int 
+    endereco: str
+    
     class Config:
         from_attributes = True
         
-class MatriculaBase(BaseModel):
-    estudante_id: int
-    nome_disciplina: str
+class PerfilCreate(BaseModel):
+    idade: int
+    endereco: str
     
-class MatriculaCreate(MatriculaBase):
-    pass
-
-class MatriculaResponse(MatriculaBase):
+class Estudante(BaseModel):
     id: int
+    nome: str
+    email: str
+    perfil: Optional['Perfil'] = None
+    
     class Config:
         from_attributes = True
+    
+class EstudanteCreate(BaseModel):
+    nome: str
+    email: str
+    perfil: PerfilCreate
+    

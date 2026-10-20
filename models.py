@@ -1,12 +1,11 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
-from sqlalchemy import relationship
+from sqlalchemy.orm import relationship
 from database import Base
 
 class Estudante(Base):
     __tablename__ = "estudantes"
     id = Column(Integer, primary_key=True, index=True)
     nome = Column(String)
-    idade = Column(Integer)
     email = Column(String)
     perfil = relationship("Perfil", back_populates="estudante", uselist=False, cascade="all, delete-orphan")
     
